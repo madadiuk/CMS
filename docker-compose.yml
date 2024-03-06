@@ -1,0 +1,64 @@
+version: '3.8'
+services:
+  # PHP Service
+  cms-app:
+    build:
+      context: .
+      dockerfile: app.dockerfile
+    container_name: cms-app
+    tty: true
+    environment:
+      SERVICE_NAME: cms-app
+      SERVICE_TAGS: dev
+    working_dir: /var/www/server
+    env_file: './app/.env'
+    volumes:
+      - ./app:/var/www/server
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - cms-network
+    depends_on:
+      - cms-mysql
+    command: /bin/bash -c "php-fpm | /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf"
+
+  # Nginx Service
+  cms-webserver:
+    build:
+      context: ./
+      dockerfile: webserver.dockerfile
+    container_name: cms-webserver
+    tty: true
+    ports:                     # Forward the port for Nginx
+      - "8085:80"
+    volumes:
+      - ./app:/var/www/server
+    depends_on:
+      - cms-app
+    networks:
+      - cms-network
+
+  # MySQL Service
+  cms-mysql:
+    image: mysql:8.0
+    container_name: cms-mysql
+    restart: always
+    tty: true
+    environment:
+      MYSQL_DATABASE: cms
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_PASSWORD: secret
+    ports:
+      - "33068:3306"
+    volumes:
+      - cms_mysql:/var/lib/mysql/
+      - ./mysql:/etc/mysql/conf.d/my.cnf
+    networks:
+      - cms-network
+
+networks:
+  cms-network:
+    driver: bridge
+
+volumes:
+  cms_mysql:
+    driver: local
