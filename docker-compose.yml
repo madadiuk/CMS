@@ -39,8 +39,8 @@ services:
 
   # MySQL Service
   cms-mysql:
-    image: mysql:8.0
-    container_name: cms-mysql
+    image: mariadb:latest
+    container_name: cms-mariadb
     restart: always
     tty: true
     environment:
