@@ -2,10 +2,10 @@
 namespace App\Config;
 // app/config/database.php (database configuration settings)
 // Database configuration settings
-const DB_HOST = 'localhost';
-const DB_NAME = 'cryptoshow_db';
-const DB_USER = 'cryptoshowuser';
-const DB_PASSWORD = 'cryptoshowpass';
+const DB_HOST = 'cms-mysql';
+const DB_NAME = 'cms';
+const DB_USER = 'root';
+const DB_PASSWORD = 'secret';
 
 // Data Source Name
 const DB_DSN = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4';

@@ -32,7 +32,7 @@ class UserModel {
         }
     }
 
-    // Example CRUD operation: Add a new user
+    // Example CRUD operation: Add a new User
     public function addUser($userName, $userEmail, $userPassword) {
         $sql = "INSERT INTO `users` (`user_name`, `user_email`, `user_password`) VALUES (?, ?, ?)";
 
@@ -41,7 +41,7 @@ class UserModel {
             $stmt->execute([$userName, $userEmail, $userPassword]);
             return $this->pdo->lastInsertId();
         } catch (\PDOException $e) {
-            die("Could not add new user: " . $e->getMessage());
+            die("Could not add new User: " . $e->getMessage());
         }
     }
 
@@ -53,7 +53,7 @@ class UserModel {
             $stmt->execute([$userId]);
             return $stmt->fetch(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
-            die("Could not retrieve user: " . $e->getMessage());
+            die("Could not retrieve User: " . $e->getMessage());
         }
     }
 
@@ -64,7 +64,7 @@ class UserModel {
             $stmt->execute([$userName, $userEmail, $userPassword, $userId]);
             return $stmt->rowCount(); // Return the number of affected rows
         } catch (\PDOException $e) {
-            die("Could not update user: " . $e->getMessage());
+            die("Could not update User: " . $e->getMessage());
         }
     }
 
@@ -75,7 +75,7 @@ class UserModel {
             $stmt->execute([$userId]);
             return $stmt->rowCount(); // Return the number of affected rows
         } catch (\PDOException $e) {
-            die("Could not delete user: " . $e->getMessage());
+            die("Could not delete User: " . $e->getMessage());
         }
     }
 
