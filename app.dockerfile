@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /tmp/pear \
     && apt-get clean
 
-# Add user for application
+# Add User for application
 RUN groupadd -g 1000 www && \
     useradd -u 1000 -ms /bin/bash -g www www
 
@@ -40,7 +40,7 @@ COPY --chown=www:www ./app /var/www/server
 # Copy supervisor configuration
 COPY ./supervisord /etc/supervisor/conf.d
 
-# Switch to the non-root user
+# Switch to the non-root User
 USER www
 
 # Expose port 9000 and start php-fpm server
