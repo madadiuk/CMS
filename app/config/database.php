@@ -15,7 +15,8 @@ const DB_DSN = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb
  *
  * @return \PDO
  */
-function getDatabaseConnection() {
+function getDatabaseConnection(): \PDO
+{
     try {
         // Note the leading backslash before PDO to fetch it from the global namespace
         $pdo = new \PDO(DB_DSN, DB_USER, DB_PASSWORD);
