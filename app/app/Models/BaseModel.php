@@ -11,3 +11,4 @@ abstract class BaseModel {
         $this->db = Config\getDatabaseConnection();
     }
 }
+
