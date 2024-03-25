@@ -1,9 +1,18 @@
 <?php
-// app/public/index.php (the front controller)
+/**
+ * index.php
+ *
+ * Petshow: PHP web application to demonstrate how databases are accessed securely
+ *
+ * NB the include_path setting in php.ini must be correctly set to access the sensitive application files
+ *
+ * NB $make_trace enables/disables the creation of xdebug trace files
+ *
+ * @author CF Ingrams - cfi@dmu.ac.uk
+ * @copyright De Montfort University
+ *
+ * @package petshow
+ */
 
-require_once __DIR__ . '/../Autoloader.php';
-// Include the routing file
-require_once __DIR__ . '/../../app/routes/web.php';
 
-// Now the web.php script will handle the request based on the current URI
-
+include '../bootstrap.php';
