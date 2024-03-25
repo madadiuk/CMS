@@ -4,33 +4,9 @@ namespace App\Models;
 
 use App\Config; // This will use the namespace where your getDatabaseConnection function is located
 
-class UserModel {
-    protected $pdo;
-
-    public function __construct() {
-        // Use the getDatabaseConnection function instead of creating a new PDO instance directly
-        $this->pdo = Config\getDatabaseConnection();
-    }
-
-    public function ensureTableExists() {
-        $sql = "
-        CREATE TABLE IF NOT EXISTS `users` (
-            `user_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            `user_name` VARCHAR(100) NOT NULL,
-            `user_email` VARCHAR(255) UNIQUE NOT NULL,
-            `user_password` VARCHAR(255) NOT NULL,
-            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-        ";
-
-        try {
-            $this->pdo->exec($sql);
-            echo "Table `users` created successfully.";
-        } catch (\PDOException $e) {
-            die("Could not create table `users`: " . $e->getMessage());
-        }
-    }
+class UserModel extends BaseModel{
+    private $pdo;
+    protected $fillable = ['user_name', 'user_email', 'user_password'];
 
     // Example CRUD operation: Add a new User
     public function addUser($userName, $userEmail, $userPassword) {
