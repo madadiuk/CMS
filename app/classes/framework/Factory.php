@@ -8,7 +8,9 @@
  *
  * @package petshow
  */
-
+//require_once 'path_to_settings_file/settings.php';
+//require_once   '../settings.php';
+//var_dump(get_included_files());
 class Factory
 {
     public function __construct(){}

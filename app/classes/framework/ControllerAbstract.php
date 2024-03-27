@@ -12,7 +12,7 @@ abstract class ControllerAbstract
 {
     protected $html_output;
 
-    public final function __construct()
+    public function __construct()
     {
         $this->html_output = '';
     }
