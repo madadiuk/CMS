@@ -4,7 +4,7 @@
    * are accessed securely
    *
    *
-   * @author CF Ingrams - cfi@dmu.ac.uk
+   * @author M Madadi
    * @copyright De Montfort University
    *
    * @package petshow

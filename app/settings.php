@@ -5,7 +5,7 @@
  * Date: 13/03/16
  * Time: 14:58
  */
-namespace App;
+
 // settings.php file
 define ('DIRSEP', DIRECTORY_SEPARATOR);
 define ('URLSEP', '/');
@@ -31,13 +31,13 @@ define ('PETPICS_PATH', $petpics_path);
 define ('CSS_PATH' , $css_path);
 define ('CSS_FILE_NAME', $css_file_name);
 
-function getPdoDatabaseConnectionDetails()
+function getPdoDatabaseConnectionDetails(): array
 {
     $rdbms = 'mysql';
     $host = 'cms-mysql';
     $port = '3306';
     $charset = 'utf8mb4';
-    $db_name = 'cms';
+    $db_name = 'cryptoshow_db'; // This should be the actual database name
     $pdo_dsn = $rdbms . ':host=' . $host. ';port=' . $port . ';dbname=' . $db_name . ';charset=' . $charset;
     $pdo_user_name = 'root';
     $pdo_user_password = 'secret';
