@@ -33,15 +33,17 @@ class Validate
         $route_exists = false;
         $routes = [
             'index',
-            'show_pet_names',
-            'display_pet_details'
+            'Show_device_names',
+            'display_event_details',
+            'list_all_events',
+            'list_all_devices',
         ];
-
         if (in_array($route, $routes)) {
             $route_exists =  true;
         } else {
             die();
         }
+//        var_dump($route_exists);
         return $route_exists;
     }
 
@@ -66,4 +68,5 @@ class Validate
         }
         return $validated_string;
     }
+
 }

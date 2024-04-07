@@ -1,0 +1,101 @@
+Query databases codes: Revised Database Structure
+
+
+
+-- Disable foreign key checks to ease dropping tables
+SET FOREIGN_KEY_CHECKS=0;
+
+-- Drop the database if it exists and create anew
+DROP DATABASE IF EXISTS cryptoshow_db;
+CREATE DATABASE cryptoshow_db;
+USE cryptoshow_db;
+
+-- Create a user specifically for this database
+CREATE USER IF NOT EXISTS 'cryptoshowuser'@'localhost' IDENTIFIED BY 'cryptoshowpass';
+GRANT SELECT, INSERT, UPDATE, DELETE ON cryptoshow_db.* TO 'cryptoshowuser'@'localhost';
+
+-- Table structure for `registered_user`
+DROP TABLE IF EXISTS `registered_user`;
+CREATE TABLE `registered_user` (
+ `user_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+ `user_nickname` VARCHAR(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `user_name` VARCHAR(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `user_email` VARCHAR(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `user_hashed_password` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `user_device_count` TINYINT(5) UNSIGNED NOT NULL DEFAULT 0,
+ `user_registered_timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Table structure for `crypto_device`
+DROP TABLE IF EXISTS `crypto_device`;
+CREATE TABLE `crypto_device` (
+ `crypto_device_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+ `fk_user_id` INT(10) UNSIGNED NOT NULL,
+ `crypto_device_name` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `crypto_device_image_name` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `crypto_device_record_visible` BOOLEAN DEFAULT FALSE,
+ `crypto_device_registered_timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ FOREIGN KEY (`fk_user_id`) REFERENCES `registered_user`(`user_id`),
+ PRIMARY KEY (`crypto_device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Table structure for `event`
+DROP TABLE IF EXISTS `event`;
+CREATE TABLE `event` (
+ `event_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+ `event_name` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `event_date` DATE DEFAULT NULL,
+ `event_venue` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ PRIMARY KEY (`event_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Table structure for `user_event`
+DROP TABLE IF EXISTS `user_event`;
+CREATE TABLE `user_event` (
+ `fk_user_id` INT(10) UNSIGNED NOT NULL,
+ `fk_event_id` INT(10) UNSIGNED NOT NULL,
+ FOREIGN KEY (`fk_user_id`) REFERENCES `registered_user`(`user_id`),
+ FOREIGN KEY (`fk_event_id`) REFERENCES `event`(`event_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Enable foreign key checks after modifications
+SET FOREIGN_KEY_CHECKS=1;
+
+
+Fake data:
+
+INSERT INTO `registered_user` (`user_nickname`, `user_name`, `user_email`, `user_hashed_password`, `user_device_count`) VALUES
+('Nick01', 'Nick Fury', 'nick01@example.com', 'hashedpassword01', 2),
+('JaneDoe', 'Jane Doe', 'janedoe@example.com', 'hashedpassword02', 1),
+('JohnDoe', 'John Doe', 'johndoe@example.com', 'hashedpassword03', 3),
+('AliceW', 'Alice Wonderland', 'alice@example.com', 'hashedpassword04', 1),
+('BobBuilder', 'Bob the Builder', 'bobbuilder@example.com', 'hashedpassword05', 2),
+('CharlieC', 'Charlie Chaplin', 'charliec@example.com', 'hashedpassword06', 1);
+
+
+INSERT INTO `crypto_device` (`fk_user_id`, `crypto_device_name`, `crypto_device_image_name`, `crypto_device_record_visible`) VALUES
+(1, 'Bitcoin Miner', 'miner01.jpg', TRUE),
+(2, 'Ethereum Rig', 'rig01.jpg', TRUE),
+(1, 'Litecoin Miner', 'miner02.jpg', TRUE),
+(3, 'Zcash Miner', 'miner03.jpg', FALSE),
+(4, 'Monero Rig', 'rig02.jpg', TRUE),
+(5, 'Dash Miner', 'miner04.jpg', TRUE);
+
+
+INSERT INTO `event` (`event_name`, `event_date`, `event_venue`) VALUES
+('CryptoCon 2024', '2024-07-20', 'New York'),
+('Blockchain Expo 2024', '2024-08-15', 'London'),
+('Decentralized Web Summit', '2024-09-05', 'San Francisco'),
+('Ethereum Developer Conference', '2024-10-12', 'Tokyo'),
+('NFT NYC', '2024-11-01', 'New York'),
+('Bitcoin 2025: A New Era', '2025-01-25', 'Dubai');
+
+
+INSERT INTO `user_event` (`fk_user_id`, `fk_event_id`) VALUES
+(1, 1),
+(1, 2),
+(2, 1),
+(3, 3),
+(4, 2),
+(5, 4);

@@ -7,9 +7,15 @@ class DeviceModel
 {
     private $database;
 
-    public function __construct($database)
+    public function __construct($databaseWrapper)
     {
-        $this->database = $database;
+        $this->database = $databaseWrapper;
+    }
+    public function listAllDevices()
+    {
+        $query = "SELECT * FROM crypto_device ORDER BY crypto_device_id DESC";
+        $this->database->safeQuery($query);
+        return $this->database->safeFetchAllResults();
     }
 
     public function getDevicesByUserId($userId)
@@ -37,5 +43,10 @@ class DeviceModel
         $query = SqlQuery::queryDeleteDeviceById();
         $params = [':crypto_device_id' => $deviceId, ':fk_user_id' => $userId];
         $this->database->safeQuery($query, $params);
+    }
+    public function getLastFourDevices() {
+        $query = "SELECT crypto_device_id, crypto_device_name, crypto_device_image_name, crypto_device_record_visible, crypto_device_registered_timestamp  FROM crypto_device ORDER BY crypto_device_id DESC LIMIT 4";
+        $this->database->safeQuery($query);
+        return $this->database->safeFetchAllResults();
     }
 }
