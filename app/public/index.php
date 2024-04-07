@@ -13,6 +13,10 @@
  *
  * @package petshow
  */
-
-
+// Temporarily added to index.php for debugging purposes
+//include '../bootstrap.php';
+//require_once '../classes/controllers/IndexController.php'; // Update the path accordingly
+//$controller = new IndexController();
+//$controller->createHtmlOutput();
+//echo $controller->getHtmlOutput();
 include '../bootstrap.php';

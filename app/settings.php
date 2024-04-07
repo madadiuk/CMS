@@ -21,8 +21,10 @@ $application_name = 'CryptoShow system';
 $media_path = $app_root_path . 'media' . URLSEP;
 $petpics_path = $media_path . 'img' . URLSEP;
 $css_path = $app_root_path . URLSEP . 'css' . URLSEP;
+$js_path = $app_root_path . URLSEP . 'js' . URLSEP;
 $css_file_name = 'style.css';
 
+define ('JS_PATH' , $js_path);
 define ('CLASS_PATH', $class_file_path);
 define ('APP_ROOT_PATH', $app_root_path);
 define ('APP_NAME', $application_name);

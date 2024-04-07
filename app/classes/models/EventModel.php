@@ -7,9 +7,15 @@ class EventModel
 {
     private $database;
 
-    public function __construct($database)
+    public function __construct($databaseWrapper)
     {
-        $this->database = $database;
+        $this->database = $databaseWrapper;
+    }
+    public function listAllEvents()
+    {
+        $query = "SELECT * FROM event ORDER BY event_date DESC";
+        $this->database->safeQuery($query);
+        return $this->database->safeFetchAllResults();
     }
 
     public function getAllEvents()
@@ -18,7 +24,12 @@ class EventModel
         $this->database->safeQuery($query, []);
         return $this->database->safeFetchAllResults();
     }
-
+    public function getLastThreeEvents() {
+        $sql_query = SqlQuery::queryRetrieveLastThreeEvents(); // You'll need to implement this method in SqlQuery
+        // Assume $database is your DatabaseWrapper instance injected into this model
+        $this->database->safeQuery($sql_query);
+        return $this->database->safeFetchAllResults();
+    }
     public function linkUserWithEvent($userId, $eventId)
     {
         $query = SqlQuery::queryLinkUserWithEvent();
@@ -45,5 +56,9 @@ class EventModel
         $query = SqlQuery::queryDeleteEventById();
         $params = [':event_id' => $eventId];
         $this->database->safeQuery($query, $params);
+    }
+    // Ensure there's a method to get the database instance
+    public function getDatabase() {
+        return $this->database;
     }
 }

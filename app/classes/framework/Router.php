@@ -24,6 +24,7 @@ class Router
         $html_output = '';
 
         $selected_route = $this->setRouteName();
+//        var_dump($selected_route);
         $route_exists = $this->validateRouteName($selected_route);
 
         if ($route_exists == true)
@@ -67,20 +68,43 @@ class Router
     {
         switch ($selected_route)
         {
-            case 'show_pet_names':
-                $controller = Factory::buildObject('ListPetNamesController');
+            case 'list_all_events':
+                $databaseWrapper = Factory::createDatabaseWrapper();
+                $eventModel = new EventModel($databaseWrapper);
+                $view = new EventView(); // Assuming you have this view ready
+                $controller = new EventController($eventModel, $view);
+                $controller->listAllEvents();
                 break;
-            case 'display_pet_details':
-                $controller = Factory::buildObject('DisplayPetDetailsController');
+            case 'list_all_devices':
+                $databaseWrapper = Factory::createDatabaseWrapper();
+                $deviceModel = new DeviceModel($databaseWrapper);
+                $view = new DeviceView(); // Assuming you have this view ready
+                $controller = new DeviceController($deviceModel, $view);
+                $controller->listAllDevices();
+                break;
+            case 'Show_device_names':
+                $controller = Factory::buildObject('DeviceController');
+                break;
+            case 'display_event_details':
+                $controller = Factory::buildObject('EventController');
                 break;
             case 'index':
             default:
-            $controller = Factory::buildObject('IndexController');
-                break;
+            // Instantiate DatabaseWrapper, EventModel, and UserModel for the IndexController
+            $databaseWrapper = Factory::createDatabaseWrapper();
+            $eventModel = new EventModel($databaseWrapper);
+            $userModel = new UserModel($databaseWrapper); // Assuming you have a UserModel class and it's constructed similarly
+            $deviceModel = new DeviceModel($databaseWrapper); // Assuming you have a DeviceModel class and it's constructed similarly
+
+            // Manually instantiate the IndexController with both EventModel and UserModel dependencies
+            $controller = new IndexController($eventModel, $userModel, $deviceModel); // Now passing both required arguments
+
+            break;
         }
+
         $controller->createHtmlOutput();
-        $html_output = $controller->getHtmlOutput();
-        return $html_output;
+
+        return $controller->getHtmlOutput();
     }
 
     private function processOutput(string $html_output)

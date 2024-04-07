@@ -11,6 +11,14 @@ class UserModel
     {
         $this->database = $database;
     }
+    public function getLastFiveUsers() {
+        $query = "SELECT user_nickname, user_device_count FROM registered_user ORDER BY user_registered_timestamp DESC LIMIT 5";
+
+        // Adjusted to use safeQuery
+        $this->database->safeQuery($query);
+        return $this->database->safeFetchAllResults();
+    }
+
 
     public function getUserByEmail($email)
     {

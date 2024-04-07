@@ -7,7 +7,7 @@
  *
  * @package crypto-show
  */
-
+//var_dump(get_included_files());
 abstract class ControllerAbstract
 {
     protected $html_output;
@@ -19,10 +19,11 @@ abstract class ControllerAbstract
 
     public final function __destruct(){}
 
-    public function getHtmlOutput()
+    public function getHtmlOutput(): string
     {
         return $this->html_output;
     }
 
     abstract protected function createHtmlOutput();
+
 }
