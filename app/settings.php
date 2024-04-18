@@ -1,8 +1,8 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: cfi
- * Date: 13/03/16
+ * User: M MADADI
+ * Date: 16 April 2024
  * Time: 14:58
  */
 
@@ -11,11 +11,15 @@ define ('DIRSEP', DIRECTORY_SEPARATOR);
 define ('URLSEP', '/');
 
 $app_file_path = realpath(dirname(__FILE__));
+
 $class_file_path = $app_file_path . DIRSEP . 'classes' . DIRSEP;
 
 $app_root_path = dirname($_SERVER['PHP_SELF'], 1) . URLSEP;
 $document_root = $_SERVER['HTTP_HOST'];
 $app_root_path = 'http://' . $document_root . $app_root_path;
+
+
+
 
 $application_name = 'CryptoShow system';
 $media_path = $app_root_path . 'media' . URLSEP;
@@ -28,7 +32,7 @@ define ('JS_PATH' , $js_path);
 define ('CLASS_PATH', $class_file_path);
 define ('APP_ROOT_PATH', $app_root_path);
 define ('APP_NAME', $application_name);
-define ('MEDIA_PATH', $media_path);
+define ('MEDIA_PATH', $app_file_path .DIRSEP . 'public' .DIRSEP . 'media' . DIRSEP);
 define ('PETPICS_PATH', $petpics_path);
 define ('CSS_PATH' , $css_path);
 define ('CSS_FILE_NAME', $css_file_name);

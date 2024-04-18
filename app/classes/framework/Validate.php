@@ -4,18 +4,26 @@
  * are accessed securely
  *
  *
- * @author CF Ingrams - cfi@dmu.ac.uk
+ * @author M MADADI
  * @copyright De Montfort University
  *
- * @package petshow
+ * @package CryptoShow system CMS
  */
 
+/**
+ * Represents a validator for route names and strings.
+ */
 class Validate
 {
+    /**
+     * Constructs the Validate object.
+     */
     public function __construct()
     {
     }
-
+    /**
+     * Destructs the Validate object.
+     */
     public function __destruct()
     {
     }
@@ -30,23 +38,67 @@ class Validate
      */
     public function validateRoute($route)
     {
+
+//        print_r($route);exit;
         $route_exists = false;
         $routes = [
             'index',
             'Show_device_names',
             'display_event_details',
-            'list_all_events',
-            'list_all_devices',
+            'events',
+            'devices',
+            'add_device',
+            'add_event',
+            'login',
+            'logout',
+            'register',
+            'process_register',
+            'process_login',
+            'logout',
+            'profile',
+            'process_profile_update',
+            'delete_profile',
+            'userEvents',
+            'deleteEvent', // Placeholder for dynamic route
+            'addUserEvent', // Placeholder for dynamic route
+            'processAddUserEvent',
+            'editEvent', // Placeholder for dynamic route
+            'processUpdateEvent',
+            'listDevices',
+            'addDevice',
+            'processAddDevice',
+            'editDevice',
+            'processEditDevice',
+            'deleteDevice'
         ];
-        if (in_array($route, $routes)) {
-            $route_exists =  true;
-        } else {
-            die();
+
+        foreach ($routes as $pattern) {
+
+            // Convert placeholders to regex
+            $pattern = str_replace('{eventId}', '[0-9]+', $pattern);
+            // Match the pattern against the route
+            if (preg_match('#^' . $pattern . '$#', $route)) {
+                $route_exists = true;
+                break;
+            }
         }
-//        var_dump($route_exists);
+
+        if (!$route_exists) {
+            die("Route $route is not valid.");
+        }
+
         return $route_exists;
     }
 
+    /**
+     * Validates a string based on length constraints.
+     *
+     * @param string $datum_name The name of the datum to validate.
+     * @param array $tainted The array containing the datum to be validated.
+     * @param int|null $min_length The minimum allowed length of the string (optional).
+     * @param int|null $max_length The maximum allowed length of the string (optional).
+     * @return string|false The validated string if it meets the length constraints, false otherwise.
+     */
     public function validateString(
         string $datum_name,
         array $tainted,

@@ -3,10 +3,10 @@
  * Factory.php
  * PHP web application to demonstrate how databases are accessed securely
  *
- * @author CF Ingrams - cfi@dmu.ac.uk
+ * @author M MADADI
  * @copyright De Montfort University
  *
- * @package petshow
+ * @package CryptoShow system CMS
  */
 //require_once 'path_to_settings_file/settings.php';
 //require_once   '../settings.php';
@@ -26,6 +26,9 @@ class Factory
         return $object;
     }
 
+    /**
+     * @return mixed - returns a database wrapper object
+     */
     public static function createDatabaseWrapper()
     {
         $database = Factory::buildObject('DatabaseWrapper');

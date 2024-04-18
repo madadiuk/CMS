@@ -2,10 +2,10 @@
 /**
  * ControllerAbstract.php
  *
- * @author CF Ingrams - cfi@dmu.ac.uk
+ * @author M Madadi
  * @copyright De Montfort University
  *
- * @package crypto-show
+ * @package CryptoShow system CMS
  */
 //var_dump(get_included_files());
 abstract class ControllerAbstract
