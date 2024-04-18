@@ -2,10 +2,10 @@
 /**
  * ProcessOutput.php
  *
- * @author CF Ingrams - cfi@dmu.ac.uk
+ * @author M Madadi
  * @copyright De Montfort University
  *
- * @package petshow
+ * @package CryptoShow system CMS
  */
 //var_dump(get_included_files());
 class ProcessOutput

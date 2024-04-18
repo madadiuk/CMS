@@ -11,24 +11,17 @@
    */
 
 /**
- * Represents a template for generating HTML web pages.
- * Used to create consistent page layouts across the web application.
+ * Represents a template view for user-related web pages.
  */
-  class WebPageTemplateView {
-      /**
-       * @var string $page_title The title of the web page
-       * @var string $html_page_content The content of the web page
-       * @var string $html_page_output The final HTML output of the web page
-       */
+  class UserTemplateView {
     protected $page_title;
     protected $html_page_content;
     protected $html_page_output;
-
       /**
-       * Constructor for the WebPageTemplateView class.
-       * Initialises the page title, content, and output.
+       * Constructs the UserTemplateView object.
+       * @param string $page_title The page title.
+       * @param string $html_page_content The page content.
        * @return void
-       * @access public
        */
       public function __construct() {
         $this->page_title = '';
@@ -37,22 +30,20 @@
     }
 
       /**
-       * Destructor for the WebPageTemplateView class.
+       * Destructs the UserTemplateView object.
        */
       public function __destruct(){}
       /**
-       * Sets the title of the web page.
-       * @param string $title The title of the web page
-       * @return void
-       * @access public
+       * Creates a web page by assembling its components.
        */
      public function createWebPage()
      {
          $this->createHeadSection();
          $this->createHeader();
+//         $this->createFooter();
      }
       /**
-       * Creates the head section of the web page, including metadata and stylesheets.
+       * Creates the head section of the web page.
        */
     protected function createHeadSection() {
         $css_path = CSS_PATH;
@@ -68,11 +59,9 @@
     <meta charset="utf-8" />
     <meta property="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="{$css_path}{$css_filename}" type="text/css" />
-    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" />
-
     <link rel="stylesheet" href="{$css_path}{$css_index}" />
     <style>
         html { scroll-behavior: smooth; }
@@ -110,13 +99,9 @@ HTML;
     }
 
       /**
-       * Creates the header section of the web page, including navigation links and buttons.
+       * Creates the header section of the web page.
        */
     protected function createHeader() {
-        // Determine the button and link based on user session status
-        $buttonText = isset($_SESSION['user_id']) ? 'My Profile' : 'Login';
-        $linkHref = isset($_SESSION['user_id']) ? '/profile' : '/login';
-
         $html_output = <<<HTML
 <div data-role="Header" class="home-navbar-container">
     <div class="home-navbar">
@@ -128,15 +113,16 @@ HTML;
                 </svg>
             </div>
             <div class="home-links-container">
-                <a href="/" class="home-link Anchor">home</a>
-                <a href="/events" class="home-link02 Anchor">events</a>
-                <a href="/devices" class="home-link03 Anchor">devices</a>
+                <a href="/" class="home-link Anchor">Home</a>
+                <a href="/profile" class="home-link Anchor">My profile</a>
+                <a href="/userEvents" class="home-link02 Anchor">My events</a>
+                <a href="/listDevices" class="home-link03 Anchor">My devices</a>
              
                 
             </div>
         </div>
         <div class="home-right-side">
-            <a class="home-cta-btn Anchor button" href="$linkHref">$buttonText</a>
+             <a class="home-cta-btn Anchor button" href="/logout">logout</a>
         </div>
         <div data-role="MobileMenu" class="home-mobile-menu">
             <div class="home-container1">
@@ -148,9 +134,10 @@ HTML;
                 </div>
             </div>
             <div class="home-links-container1">
-                <a href="/" class="home-link04 Anchor">home</a>
-                <a href="/events" class="home-link06 Anchor">events</a>
-                <a href="/devices" class="home-link07 Anchor">devices</a>
+                <a href="/" class="home-link04 Anchor">Home</a>
+                <a href="/profile" class="home-link04 Anchor">My profile</a>
+                <a href="/userEvents" class="home-link06 Anchor">My events</a>
+                <a href="/listDevices" class="home-link07 Anchor">My devices</a>
             </div>
         </div>
     </div>
@@ -161,43 +148,11 @@ HTML;
     }
 
       /**
-       * Creates the footer section of the web page, including contact information and social links.
+       * Creates the footer section of the web page.
        */
     protected function createFooter() {
-        // Assuming you've defined JS_PATH and the JavaScript filename somewhere
-        $js_path = JS_PATH;
-//        $js_filename = 'main.js'; // Example JavaScript filename
 
         $footer = <<<HTML
-        <div class="home-section-separator2"></div>
-        <div class="home-get-in-touch">
-            <h2 class="home-text29 Section-Heading">Get in touch</h2>
-            <div class="home-content-container6">
-                <div class="home-locations-container">
-                    <div class="home-location-1">
-                        <span class="home-heading2">Leicester, UK</span>
-                        <div class="home-adress">
-                            <svg viewBox="0 0 1024 1024" class="home-icon36">
-                                <path d="M512 0c-176.732 0-320 143.268-320 320 0 320 320 704 320 704s320-384 320-704c0-176.732-143.27-320-320-320zM512 512c-106.040 0-192-85.96-192-192s85.96-192 192-192 192 85.96 192 192-85.96 192-192 192z"></path>
-                            </svg>
-                            <span class="Section-Text">Address: De Montfort University</span>
-                        </div>
-                        <div class="home-email">
-                            <svg viewBox="0 0 1024 1024" class="home-icon38">
-                                <path d="M854 342v-86l-342 214-342-214v86l342 212zM854 170q34 0 59 26t25 60v512q0 34-25 60t-59 26h-684q-34 0-59-26t-25-60v-512q0-34 25-60t59-26h684z"></path>
-                            </svg>
-                            <span class="Section-Text">E-mail Address: Mo@Madadi.Uk, edurosa0105@gmail.com, Stevenclark360_@hotmail.com </span>
-                        </div>
-                        <div class="home-phone">
-                            <svg viewBox="0 0 804.5714285714286 1024" class="home-icon40">
-                                <path d="M804.571 708.571c0 20.571-9.143 60.571-17.714 79.429-12 28-44 46.286-69.714 60.571-33.714 18.286-68 29.143-106.286 29.143-53.143 0-101.143-21.714-149.714-39.429-34.857-12.571-68.571-28-100-47.429-97.143-60-214.286-177.143-274.286-274.286-19.429-31.429-34.857-65.143-47.429-100-17.714-48.571-39.429-96.571-39.429-149.714 0-38.286 10.857-72.571 29.143-106.286 14.286-25.714 32.571-57.714 60.571-69.714 18.857-8.571 58.857-17.714 79.429-17.714 4 0 8 0 12 1.714 12 4 24.571 32 30.286 43.429 18.286 32.571 36 65.714 54.857 97.714 9.143 14.857 26.286 33.143 26.286 50.857 0 34.857-103.429 85.714-103.429 116.571 0 15.429 14.286 35.429 22.286 49.143 57.714 104 129.714 176 233.714 233.714 13.714 8 33.714 22.286 49.143 22.286 30.857 0 81.714-103.429 116.571-103.429 17.714 0 36 17.143 50.857 26.286 32 18.857 65.143 36.571 97.714 54.857 11.429 5.714 39.429 18.286 43.429 30.286 1.714 4 1.714 8 1.714 12z"></path>
-                            </svg>
-                            <span class="Section-Text">0116 255 1551</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="home-section-separator3"></div>
         <div class="home-footer-container">
             <div class="home-footer">
@@ -254,11 +209,7 @@ HTML;
         });
     </script>
 HTML;
-
-
         $this->html_page_output .= $footer;
-
     }
-
 
 }

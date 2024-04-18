@@ -12,10 +12,10 @@
  * If there are any problems, the error class is instantiated for error processing
  * NB this could also be achieved by throwing an exception in a try-catch structure
  *
- * @author CF Ingrams - cfi@dmu.ac.uk
+ * @author m Madadi
  * @copyright De Montfort University
  *
- * @package petshow
+ * @package cryptoshow system
  */
 
 include_once 'autoload.php';

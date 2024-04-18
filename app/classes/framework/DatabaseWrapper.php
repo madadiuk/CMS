@@ -3,10 +3,10 @@
  * DatabaseWrapper.php
  *
  *
- * @author CF Ingrams - cfi@dmu.ac.uk
+ * @author  M Madadi
  * @copyright De Montfort University
  *
- * @package crypto-show
+ * @package CryptoShow system CMS
  */
 
 class DatabaseWrapper
@@ -30,6 +30,44 @@ class DatabaseWrapper
     public function __destruct()
     {
         $this->database_handle = null;
+    }
+    /**
+     * Begin a transaction.
+     */
+    public function beginTransaction()
+    {
+        try {
+            return $this->database_handle->beginTransaction();
+        } catch (PDOException $e) {
+            $this->database_connection_messages['error'] = "Failed to start transaction: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    /**
+     * Commit a transaction.
+     */
+    public function commit()
+    {
+        try {
+            return $this->database_handle->commit();
+        } catch (PDOException $e) {
+            $this->database_connection_messages['error'] = "Failed to commit transaction: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    /**
+     * Roll back a transaction.
+     */
+    public function rollBack()
+    {
+        try {
+            return $this->database_handle->rollBack();
+        } catch (PDOException $e) {
+            $this->database_connection_messages['error'] = "Failed to roll back transaction: " . $e->getMessage();
+            return false;
+        }
     }
 
     /**

@@ -14,10 +14,10 @@
   *
   * @param $class_name
   *
-  * @author CF Ingrams <cfi@dmu.ac.uk>
-  * @copyright CFI, De Montfort University
+  * @author M Madadi
+  * @copyright  De Montfort University
   *
-  * @package petshow
+  * @package crypto show system
   *
   */
 

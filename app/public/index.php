@@ -1,17 +1,14 @@
 <?php
+session_start();
 /**
  * index.php
  *
- * Petshow: PHP web application to demonstrate how databases are accessed securely
+ * cms system entry point for the CryptoShow system
  *
- * NB the include_path setting in php.ini must be correctly set to access the sensitive application files
- *
- * NB $make_trace enables/disables the creation of xdebug trace files
- *
- * @author CF Ingrams - cfi@dmu.ac.uk
+ * @author M Madadi
  * @copyright De Montfort University
  *
- * @package petshow
+ * @package CryptoShow system CMS
  */
 // Temporarily added to index.php for debugging purposes
 //include '../bootstrap.php';
@@ -20,3 +17,5 @@
 //$controller->createHtmlOutput();
 //echo $controller->getHtmlOutput();
 include '../bootstrap.php';
+
+
